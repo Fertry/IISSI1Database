@@ -20,8 +20,24 @@ SELECT count(idReserva) FROM Reservas;
 
 /* Consultas asociadas a requisitos funcionales */
 
-/* RF1 - Listado de reservas dado un idUsuario */
-SELECT * FROM Reservas R, Usuarios U WHERE R.usuario = U.idUsuario;
+/* RF1 - Listado de reservas asociado a usuarios */
+/* En forma de cursor */
+CREATE OR REPLACE PROCEDURE cursorRF1 IS
+BEGIN
+    DECLARE
+        CURSOR cUno IS
+        SELECT * FROM Reservas R, Usuarios U WHERE R.usuario = U.idUsuario; 
+    BEGIN
+        DBMS_OUTPUT.PUT_LINE('Listado de reservas asociado a usuarios:'); 
+            FOR fila IN cUno LOOP
+                DBMS_OUTPUT.PUT_LINE('Id:'||fila.idReserva||' '||'Fecha:'||fila.fecha||' '||'NumPersonas:'||fila.numPersonas||' '||'Mesa:'||fila.mesa||' '||'Usuario:'||fila.nombre||','||fila.clase) ; 
+            END LOOP;
+    END;
+END cursorRF1;
+/
+
+/* Prueba de RF1 */
+EXECUTE cursorRF1;
 
 /* RF2 - Listado de comandas emitidas por cada maître */
 SELECT * FROM Comandas C, Usuarios U WHERE C.usuario = U.idUsuario ORDER BY importe DESC;
