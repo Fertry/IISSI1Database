@@ -1,4 +1,4 @@
--------- 3 ENTREGABLE IISSI 1 - RESTAURANTE SEVILLA --------
+-------- 3º ENTREGABLE IISSI 1 - RESTAURANTE SEVILLA --------
 
 /* 
     · Master.sql contiene todo el código del proyecto.
