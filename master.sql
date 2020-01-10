@@ -1,4 +1,4 @@
--------- 3º ENTREGABLE IISSI 1 - RESTAURANTE SEVILLA --------
+-------- 3 ENTREGABLE IISSI 1 - RESTAURANTE SEVILLA --------
 
 /* 
     · Master.sql contiene todo el código del proyecto.
@@ -63,6 +63,7 @@ DROP PROCEDURE updateMesas;
 DROP PROCEDURE updateReservas;
 
 -------- BORRADO DE CURSORES --------
+DROP PROCEDURE cursorRF1;
 DROP PROCEDURE cursorUno;
 DROP PROCEDURE cursorDos;
 DROP PROCEDURE cursorTres;
@@ -442,79 +443,78 @@ END insertReservas;
 
 /* Procedimientos de UPDATE */
 CREATE OR REPLACE PROCEDURE updateCartas
-(idCarta IN SMALLINT, temporada IN DATE) AS 
+(idCartaP IN SMALLINT, temporadaP IN DATE) AS 
 BEGIN
-UPDATE Cartas SET temporada = temporada WHERE idCarta = idCarta;
+UPDATE Cartas SET temporada = temporadaP WHERE idCarta = idCartaP;
 END updateCartas;
-/
 
 CREATE OR REPLACE PROCEDURE updateProductos
-(idProducto IN SMALLINT, nombre IN VARCHAR2, descripcion IN VARCHAR2, tipoProducto IN VARCHAR2, disponibilidad IN SMALLINT, precioProducto IN FLOAT) AS 
+(idProductoP IN SMALLINT, nombreP IN VARCHAR2, descripcionP IN VARCHAR2, tipoProductoP IN VARCHAR2, disponibilidadP IN SMALLINT, precioProductoP IN FLOAT) AS 
 BEGIN
-UPDATE Productos SET nombre = nombre, descripcion = descripcion, tipoProducto = tipoProducto, disponibilidad = disponibilidad, precioProducto = precioProducto WHERE idProducto = idProducto;
+UPDATE Productos SET nombre = nombreP, descripcion = descripcionP, tipoProducto = tipoProductoP, disponibilidad = disponibilidadP, precioProducto = precioProductoP WHERE idProducto = idProductoP;
 END updateProductos;
 /
 
 CREATE OR REPLACE PROCEDURE updateProductoCarta 
-(idProductoCarta IN SMALLINT, idCarta IN SMALLINT, idProducto IN SMALLINT) AS
+(idProductoCartaP IN SMALLINT, idCartaP IN SMALLINT, idProductoP IN SMALLINT) AS
 BEGIN
-UPDATE ProductoCarta SET idCarta = idCarta, idProducto = idProducto WHERE idProductoCarta = idProductoCarta;
+UPDATE ProductoCarta SET idCarta = idCartaP, idProducto = idProductoP WHERE idProductoCarta = idProductoCartaP;
 END updateProductoCarta;
 /
 
 CREATE OR REPLACE PROCEDURE updateMenus
-(idMenu IN SMALLINT, precio IN FLOAT, carta in SMALLINT) AS
+(idMenuP IN SMALLINT, precioP IN FLOAT, cartaP in SMALLINT) AS
 BEGIN
-UPDATE Menus SET precio = precio, carta = carta WHERE idMenu = idMenu;
+UPDATE Menus SET precio = precioP, carta = cartaP WHERE idMenu = idMenuP;
 END updateMenus;
 /
 
 CREATE OR REPLACE PROCEDURE updateProductoMenu
-(idProductoMenu IN SMALLINT, tipoPlato IN VARCHAR2, idProducto IN SMALLINT, idMenu IN SMALLINT) AS
+(idProductoMenuP IN SMALLINT, tipoPlatoP IN VARCHAR2, idProductoP IN SMALLINT, idMenuP IN SMALLINT) AS
 BEGIN
-UPDATE ProductoMenu SET tipoPlato = tipoPlato, idProducto = idProducto, idMenu = idMenu WHERE idProductoMenu = idProductoMenu;
+UPDATE ProductoMenu SET tipoPlato = tipoPlatoP, idProducto = idProductoP, idMenu = idMenuP WHERE idProductoMenu = idProductoMenuP;
 END updateProductoMenu;
 /
 
 CREATE OR REPLACE PROCEDURE updateAlergenos
-(idAlergeno IN SMALLINT, nombre in VARCHAR2, descripcion IN VARCHAR2) AS 
+(idAlergenoP IN SMALLINT, nombreP IN VARCHAR2, descripcionP IN VARCHAR2) AS 
 BEGIN
-UPDATE Alergenos SET nombre = nombre, descripcion = descripcion WHERE idAlergeno = idAlergeno;
+UPDATE Alergenos SET nombre = nombreP, descripcion = descripcionP WHERE idAlergeno = idAlergenoP;
 END updateAlergenos;
 /
 
 CREATE OR REPLACE PROCEDURE updateContiene
-(OIDContiene IN SMALLINT, idProducto IN SMALLINT, idAlergeno IN SMALLINT) AS 
+(OIDContieneP IN SMALLINT, idProductoP IN SMALLINT, idAlergenoP IN SMALLINT) AS 
 BEGIN
-UPDATE Contiene SET idProducto = idProducto, idAlergeno = idAlergeno WHERE OIDContiene = OIDContiene;
+UPDATE Contiene SET idProducto = idProductoP, idAlergeno = idAlergenoP WHERE OIDContiene = OIDContieneP;
 END updateContiene;
 /
 
 CREATE OR REPLACE PROCEDURE updateUsuarios
-(idUsuario IN SMALLINT, clase IN VARCHAR2, nombre IN VARCHAR2, apellidos IN VARCHAR2, telefono IN VARCHAR2, carta IN SMALLINT) AS 
+(idUsuarioP IN SMALLINT, claseP IN VARCHAR2, nombreP IN VARCHAR2, apellidosP IN VARCHAR2, telefonoP IN VARCHAR2, cartaP IN SMALLINT) AS 
 BEGIN
-UPDATE Usuarios SET clase = clase, nombre = nombre, apellidos = apellidos, telefono = telefono, carta = carta WHERE idUsuario = idUsuario;
+UPDATE Usuarios SET clase = claseP, nombre = nombreP, apellidos = apellidosP, telefono = telefonoP, carta = cartaP WHERE idUsuario = idUsuarioP;
 END updateUsuarios;
 /
 
 CREATE OR REPLACE PROCEDURE updateComandas
-(idComanda IN SMALLINT, fecha IN DATE, importe IN FLOAT, usuario IN SMALLINT) AS 
+(idComandaP IN SMALLINT, fechaP IN DATE, importeP IN FLOAT, usuarioP IN SMALLINT) AS 
 BEGIN
-UPDATE Comandas SET fecha = fecha, importe = importe, usuario = usuario WHERE idComanda = idComanda;
+UPDATE Comandas SET fecha = fechaP, importe = importeP, usuario = usuarioP WHERE idComanda = idComandaP;
 END updateComandas;
 /
 
 CREATE OR REPLACE PROCEDURE updateMesas
-(idMesa IN SMALLINT, disponible IN SMALLINT, capacidad IN SMALLINT) AS 
+(idMesaP IN SMALLINT, disponibleP IN SMALLINT, capacidadP IN SMALLINT) AS 
 BEGIN
-UPDATE Mesas SET disponible = disponible, capacidad = capacidad WHERE idMesa = idMesa;
+UPDATE Mesas SET disponible = disponibleP, capacidad = capacidadP WHERE idMesa = idMesaP;
 END updateMesas;
 /
 
 CREATE OR REPLACE PROCEDURE updateReservas
-(idReserva IN SMALLINT, fecha IN DATE, numPersonas IN SMALLINT, mesa IN SMALLINT, usuario IN SMALLINT) AS 
+(idReservaP IN SMALLINT, fechaP IN DATE, numPersonasP IN SMALLINT, mesaP IN SMALLINT, usuarioP IN SMALLINT) AS 
 BEGIN
-UPDATE Reservas SET fecha = fecha, numPersonas = numPersonas, mesa = mesa, usuario = usuario WHERE idReserva = idReserva;
+UPDATE Reservas SET fecha = fechaP, numPersonas = numPersonasP, mesa = mesaP, usuario = usuarioP WHERE idReserva = idReservaP;
 END updateReservas;
 /
 
@@ -708,8 +708,24 @@ SELECT count(idReserva) FROM Reservas;
 
 /* Consultas asociadas a requisitos funcionales */
 
-/* RF1 - Listado de reservas dado un idUsuario */
-SELECT * FROM Reservas R, Usuarios U WHERE R.usuario = U.idUsuario;
+/* RF1 - Listado de reservas asociado a usuarios */
+/* En forma de cursor */
+CREATE OR REPLACE PROCEDURE cursorRF1 IS
+BEGIN
+    DECLARE
+        CURSOR cUno IS
+        SELECT * FROM Reservas R, Usuarios U WHERE R.usuario = U.idUsuario; 
+    BEGIN
+        DBMS_OUTPUT.PUT_LINE('Listado de reservas asociado a usuarios:'); 
+            FOR fila IN cUno LOOP
+                DBMS_OUTPUT.PUT_LINE('Id:'||fila.idReserva||' '||'Fecha:'||fila.fecha||' '||'NumPersonas:'||fila.numPersonas||' '||'Mesa:'||fila.mesa||' '||'Usuario:'||fila.nombre||','||fila.clase) ; 
+            END LOOP;
+    END;
+END cursorRF1;
+/
+
+/* Prueba de RF1 */
+EXECUTE cursorRF1;
 
 /* RF2 - Listado de comandas emitidas por cada maître */
 SELECT * FROM Comandas C, Usuarios U WHERE C.usuario = U.idUsuario ORDER BY importe DESC;

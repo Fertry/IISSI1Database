@@ -58,6 +58,7 @@ DROP PROCEDURE updateMesas;
 DROP PROCEDURE updateReservas;
 
 -------- BORRADO DE CURSORES --------
+DROP PROCEDURE cursorRF1;
 DROP PROCEDURE cursorUno;
 DROP PROCEDURE cursorDos;
 DROP PROCEDURE cursorTres;
